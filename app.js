@@ -27,6 +27,8 @@ const ui = {
   stageTitle: $("#stageTitle"),
   stageHint: $("#stageHint"),
   btnNext: $("#btnNext"),
+  btnFullscreen: $("#btnFullscreen"),
+  doneLabel: $("#doneLabel"),
 };
 
 const state = {
@@ -82,6 +84,19 @@ function showStageOverlay(show){
 function requestFullscreen(){
   const el = document.documentElement;
   if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
+}
+function updateFullscreenButton(){
+  const isFs = !!document.fullscreenElement;
+  ui.btnFullscreen.classList.toggle("hidden", isFs);
+}
+
+ui.btnFullscreen.addEventListener("click", () => {
+  requestFullscreen();
+});
+
+function updateTimerVisual(sec){
+  ui.timer.classList.toggle("is-warn", sec >= 31 && sec <= 60);
+  ui.timer.classList.toggle("is-danger", sec >= 0 && sec <= 30);
 }
 
 /* =========================
@@ -233,17 +248,20 @@ function startTimer(seconds){
   stopTimer();
   state.remainingSec = seconds;
   ui.timer.textContent = formatTime(state.remainingSec);
-
+  updateTimerVisual(state.remainingSec);
+  
   state.timerId = setInterval(() => {
     state.remainingSec -= 1;
     if(state.remainingSec <= 0){
       state.remainingSec = 0;
       ui.timer.textContent = "00:00";
+      updateTimerVisual(0);
       stopTimer();
       onTimeUp();
       return;
     }
     ui.timer.textContent = formatTime(state.remainingSec);
+    updateTimerVisual(state.remainingSec);
   }, 1000);
 }
 
@@ -257,14 +275,12 @@ function onTimeUp(){
   state.stage = isLast ? "done" : "stage";
 
   if(isLast){
-    ui.stageTitle.textContent = "Activité terminée";
     ui.btnNext.classList.add("hidden");
-    ui.stageHint.textContent = "Fermer l’onglet / utiliser le geste “retour” du navigateur pour quitter.";
+    ui.doneLabel.classList.remove("hidden");
   } else {
-    ui.stageTitle.textContent = "Temps écoulé";
+    ui.doneLabel.classList.add("hidden");
     ui.btnNext.classList.remove("hidden");
     ui.btnNext.textContent = "Phrase suivante";
-    ui.stageHint.textContent = "Clique pour passer à la phrase suivante.";
   }
 }
 
@@ -449,10 +465,13 @@ window.addEventListener("load", () => {
 
   loadSheet().catch((err) => console.error(err));
 
+  updateFullscreenButton();
+  document.addEventListener("fullscreenchange", updateFullscreenButton);
+
   // ESC (PC) : sort du plein écran si possible
   window.addEventListener("keydown", (e) => {
-    if(e.key === "Escape"){
-      if(document.fullscreenElement && document.exitFullscreen){
+    if (e.key === "Escape") {
+      if (document.fullscreenElement && document.exitFullscreen) {
         document.exitFullscreen().catch(() => {});
       }
     }

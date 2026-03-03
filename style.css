@@ -49,13 +49,11 @@ body{
 .timer{
   font-size:28px;
   font-weight:800;
-  padding:8px 14px;
-  border:1px solid var(--line);
-  border-radius:15px;
-  background: rgba(255,255,255,.04);
-  min-width:120px;
   text-align:center;
+  letter-spacing: .5px;
 }
+.timer.is-warn{ color: #ff9f2e; } /* orange */
+.timer.is-danger{ color: #ff4d4d; } /* rouge */
 
 .progress{
   text-align:right;
@@ -171,3 +169,16 @@ body{
   cursor:pointer;
 }
 .pickbtn:active{ transform: translateY(1px); }
+
+.fsbtn{
+  border:1px solid rgba(233,238,247,.18);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.fsbtn:active{ transform: translateY(1px); }

@@ -8,7 +8,11 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="topbar-left"></div>
+    <div class="topbar-left">
+        <button id="btnFullscreen" class="fsbtn hidden" type="button" aria-label="Plein écran">
+            ⛶
+        </button>
+    </div>
 
     <div class="topbar-center">
       <div id="timer" class="timer">05:00</div>
@@ -26,11 +30,8 @@
   <!-- Écran de transition (fin chrono / fin activité) -->
   <div id="overlayStage" class="overlay hidden" role="dialog" aria-modal="true">
     <div class="overlay-card">
-      <div id="stageTitle" class="overlay-title">Temps écoulé</div>
       <button id="btnNext" class="bigbtn">Phrase suivante</button>
-      <div id="stageHint" class="overlay-hint">
-        Sur tablette : utiliser le geste “retour” / fermer l’onglet pour quitter.
-      </div>
+      <div id="doneLabel" class="overlay-title hidden">Activité terminée</div>
     </div>
   </div>
 
