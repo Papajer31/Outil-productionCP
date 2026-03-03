@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Étiquettes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left"></div>
+
+    <div class="topbar-center">
+      <div id="timer" class="timer">05:00</div>
+    </div>
+
+    <div class="topbar-right">
+      <div id="progress" class="progress">—</div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div id="desk" class="desk" aria-label="Bureau de manipulation"></div>
+  </main>
+
+  <!-- Écran de transition (fin chrono / fin activité) -->
+  <div id="overlayStage" class="overlay hidden" role="dialog" aria-modal="true">
+    <div class="overlay-card">
+      <div id="stageTitle" class="overlay-title">Temps écoulé</div>
+      <button id="btnNext" class="bigbtn">Phrase suivante</button>
+      <div id="stageHint" class="overlay-hint">
+        Sur tablette : utiliser le geste “retour” / fermer l’onglet pour quitter.
+      </div>
+    </div>
+  </div>
+
+  <!-- Choix élève -->
+  <div id="overlayPick" class="overlay" role="dialog" aria-modal="true">
+    <div class="overlay-card overlay-card-wide">
+      <div class="overlay-title">Choisis ton prénom</div>
+      <div id="pickGrid" class="pick-grid"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
